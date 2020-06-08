@@ -5,8 +5,34 @@ const BmiCalculator = () => {
   const [heightUnit, setHeightUnit] = useState('cm');
   const [weightUnit, setWeightUnit] = useState('kg');
   const [unit, setUnit] = useState('Metric');
+  const [count, setCount] = useState({
+    heightCount: '0',
+    inchesCount: '0',
+    weightCount: '0',
+  });
 
-  const onChangeInput = (e) => {};
+  // const [count, setCount] = useState({
+  //   data: {
+  //     heightCount: '0',
+  //     inchesCount: '0',
+  //     weightCount: '0',
+  //   },
+  // });
+
+  // const { heightCount, inchesCount, weightCount } = count.data;
+  const { heightCount, inchesCount, weightCount } = count;
+
+  const onChangeInput = (e) => {
+    const { name, value } = e.target;
+    setCount((prevState) => ({ ...prevState, [name]: value }));
+    // const { data } = count;
+    // setCount({
+    //   data: {
+    //     ...data,
+    //     [name]: value,
+    //   },
+    // });
+  };
   const onSelectTag = (e) => {
     setUnit(e.target.value);
     if (e.target.value === 'Metric') {
@@ -40,7 +66,7 @@ const BmiCalculator = () => {
             type="text"
             name="heightCount"
             title={`Height (${heightUnit})`}
-            value=""
+            value={heightCount}
             onChange={onChangeInput}
           />
           {unit === 'Imperial' ? (
@@ -48,7 +74,7 @@ const BmiCalculator = () => {
               type="text"
               name="inchesCount"
               title={`(in)`}
-              value=""
+              value={inchesCount}
               onChange={onChangeInput}
             />
           ) : null}
@@ -56,7 +82,7 @@ const BmiCalculator = () => {
             type="text"
             name="weightCount"
             title={`Weight (${weightUnit})`}
-            value=""
+            value={weightCount}
             onChange={onChangeInput}
           />
         </div>
